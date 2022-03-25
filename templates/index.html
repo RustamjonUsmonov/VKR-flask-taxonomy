@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul>
+    {% for x in dict -%}
+        <ul>{{ x }}
+        {% for y in dict[x] %}
+            <li>{{ dict[x][y] }}</li>
+        {% endfor %}
+        </ul>
+    {% endfor -%}
+    </ul>
+    <pre>
+    {{ dict }}
+    </pre>
+{% endblock %}

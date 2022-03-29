@@ -2,16 +2,18 @@ import nltk
 import re
 from nltk.corpus import wordnet as wn
 
-nltk.download('maxent_ne_chunker')
-nltk.download('words')
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
+
+# nltk.download('maxent_ne_chunker')
+# nltk.download('words')
+# nltk.download('punkt')
+# nltk.download('averaged_perceptron_tagger')
+# nltk.download('wordnet')
+# nltk.download('omw-1.4')
 
 
 def clear_text():
-    txt = """Natural language processing (NLP) is a field of computer science, artificial intelligence, and computational linguistics concerned with the interactions between computers and human (natural) languages."""
+    txt = """Natural language processing (NLP) is a field of computer science, artificial intelligence, 
+    and computational linguistics concerned with the interactions between computers and human (natural) languages. """
     regex = re.compile('[^A-Za-z0-9 ]+')
     txt = regex.sub('', txt)
     return txt

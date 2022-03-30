@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div id="my_favorite_latin_words" style="width: 500px; height: 450px;"></div>
+
+    <script type="text/javascript">
+        var word_list = [
+            {% for x in dict -%}
+                {text: "{{ x }}", weight: 9, html: {"class": "text-danger"}},
+                {% for y in dict[x] %}
+                    {text: "{{''.join(y[:1]) }}", weight: 10*{{y[1:2]}} },
+                {% endfor %}
+
+            {% endfor -%}
+        ];
+        $(function () {
+            $("#my_favorite_latin_words").jQCloud(word_list);
+        });
+    </script>
+
+{% endblock %}

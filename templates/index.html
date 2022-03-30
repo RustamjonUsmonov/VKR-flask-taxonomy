@@ -2,13 +2,16 @@
 
 {% block content %}
     <ul>
+
         {% for x in dict -%}
-            <ul>{{ x }}
+            <li>{{ x }}</li>
+            <ul>
                 {% for y in dict[x] %}
-                    <li>{{ dict[x][y] }}</li>
+                    <li>{{ y[:1] }}</li>
                 {% endfor %}
             </ul>
         {% endfor -%}
+
     </ul>
     <pre>
     {{ dict }}

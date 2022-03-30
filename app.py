@@ -39,5 +39,11 @@ def save_taxonomy():
     return render_template('test.html')
 
 
+@app.route('/visualize')
+def watch():
+    dict, counter = script.calculate_similarity()
+    return render_template('watch.html', dict=dict, counter=counter)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

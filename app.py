@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import enscript
+import ruscript
 from datetime import datetime
+from langdetect import detect
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:254703rustam@localhost/taxonomies'
@@ -31,10 +34,13 @@ def home():  # put application's code here
 def save_taxonomy():
     if request.method == "POST":
         try:
-            t = Taxonomies(dictionaries=request.form['dictionaries'])
+            txt = request.form['dictionaries']
+            dict, counter = ruscript.calculate_similarity(txt) if is_ru(txt) else enscript.calculate_similarity(txt)
+            t = Taxonomies(dictionaries=json.dumps(dict, ensure_ascii=False))
             db.session.add(t)
             db.session.flush()
             db.session.commit()
+            return render_template('watch.html', dict=dict, counter=counter)
         except:
             db.session.rollback()
             print('Error to store data in db')
@@ -51,6 +57,10 @@ There is a wealth of information to be found describing how to install and use P
  """
     dict, counter = enscript.calculate_similarity(txt)
     return render_template('watch.html', dict=dict, counter=counter)
+
+
+def is_ru(txt):
+    return detect(txt) == 'ru'
 
 
 if __name__ == '__main__':
